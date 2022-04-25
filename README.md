@@ -44,15 +44,13 @@ or
 ```
 ./monero-51%-detector
 ```
-This will only search through what your `monerod` has logged in `bitmonero.log`
+***This script is only as accurate as your `bitmonero.log`***
+
+For better accuracy, use this on a system with `monerod` always on
 
 `~/.bitmonero/bitmonero.log` is the default log path used
 
 To configure script options, edit the variables at the top of the script
-
-[ok] & [fine] will exit with 0
-
-[concern] & [DANGER] will exit with 1
 
 ---
 
