@@ -52,3 +52,53 @@ To configure script options, edit the variables at the top of the script
 ---
 
 </details>
+
+<details>
+<summary>xmrig-auto-build</summary>
+
+---
+
+## About 
+[xmrig](https://github.com/xmrig/xmrig)-auto-build:
+* installs build dependencies
+* builds libraries
+* uses those libraries to build a XMRig binary
+* (optionally) cleans up all the source code
+* (optionally) configures config.json (GNU/Linux only)
+
+*note: build dependencies are NOT uninstalled afterwards*
+
+## Supported OS
+* **Debian** (apt based: Ubuntu, Linux Mint, Pop!_OS)
+* **Arch** (pacman based: Manjaro)
+* **Fedora** (DNF based)
+* **Alpine** (apk based)
+* **FreeBSD** (pkg based)
+* **MacOS** ([brew](https://brew.sh) based)
+* ❌ **Windows** ([see manual build here](https://xmrig.com/docs/miner/build/windows))
+
+## Usage
+```
+Interactive:
+./XMRig-Auto-Build
+Options:
+./XMRig-Auto-Build <option> <more options>
+
+-S    --stable                Use stable libraries
+-L    --latest                Use latest development libraries
+-C    --config                Allow configuration of the config.json (GNU/Linux only)
+-P    --path                  Set install path:  --path=YOUR_PATH_HERE  or  -P=YOUR_PATH_HERE
+-D    --dev                   Use the active development branch of XMRig
+
+-c    --clean                 Delete all files except xmrig and config.json at end of build
+-d    --deps                  Install build dependencies
+-q    --quiet                 Turn off verbose build messages (progress and errors are still shown)
+-l    --libre                 Use LibreSSL instead of OpenSSL
+-f    --force                 Force overwrite if /xmrig/ folder already exists
+
+-h    --help                  Print this help message
+```
+
+---
+
+</details>
