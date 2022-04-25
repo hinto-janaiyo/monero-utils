@@ -1,0 +1,75 @@
+#!/usr/bin/env bash
+
+################# SCRIPT CONFIGURATION ###############
+
+# path of bitmonero.log
+LOG="$HOME/.bitmonero/bitmonero.log"
+
+# skip the printing of [ok] blocks (true/false)
+SKIP_OK="false"
+
+# skip the printing of [fine] blocks (true/false)
+SKIP_FINE="false"
+
+# skip the printing of [concern] blocks (true/false)
+SKIP_CONCERN="false"
+
+#######################################################
+
+# grep'ing block reorgs
+OUTPUT="$(grep "alternative blockchain size:.* w" "$LOG" | sed "s/[.*].*alternative/ alternative/g" | sed "s/ with.*//g")"
+if [[ $OUTPUT = "" ]]; then
+	echo "Error: Empty log file"
+	exit
+fi
+
+# title
+printf "\e[1;91m%s\n" "[Monero 51% Attack Detector]"
+printf "\e[0;00m%s" "Timeframe: "
+printf "$(printf "$OUTPUT" | head -n1 | awk '{print $1" "$2}') - "
+printf "$(printf "$OUTPUT" | tail -n1 | awk '{print $1" "$2}')\n"
+
+printf "\e[0;00m%s\n" "Log path: $LOG"
+
+printf "\e[0;00m%s\n" "Skip [ok]: $SKIP_OK"
+printf "\e[0;00m%s\n" "Skip [fine]: $SKIP_FINE"
+printf "\e[0;00m%s\n\n" "Skip [concern]: $SKIP_CONCERN"
+
+
+# loop through every line
+IFS=$'\n'
+for i in $(printf "$OUTPUT") ;do
+	block="$(printf "$i" | sed "s/.*: //g")"
+    if [[ $block -gt 5 ]]; then
+        printf "\e[1;91m%s" "[DANGER] "
+        printf "\e[0m%s\n" "$i"
+		danger="true"
+    elif [[ $block -gt 3 && $SKIP_CONCERN != "true" ]]; then
+        printf "\e[1;33m%s" "[concern] "
+        printf "\e[0m%s\n" "$i"
+		concern="true"
+	elif [[ $block -gt 2 && $SKIP_FINE != "true"  ]]; then
+        printf "\e[1;37m%s" "[fine] "
+        printf "\e[0m%s\n" "$i"
+		fine="true"
+	elif [[ $block -lt 3 && $SKIP_OK != "true" ]]; then
+		printf "\e[1;32m%s" "[ok] "
+        printf "\e[0m%s\n" "$i"
+    fi
+done
+
+# verdict
+echo
+printf "\e[0;00m%s" "Verdict: "
+if [[ $danger = true ]]; then
+	printf "\e[1;91m%s\n" "[DANGER] - Monero under attack"
+	exit
+elif [[ $concern = true ]]; then
+	printf "\e[1;33m%s\n" "[CONCERN] - Monero might be under attack"
+	exit
+elif [[ $fine = true ]]; then
+	printf "\e[1;37m%s\n" "[FINE] - Monero is fine"
+	exit
+else
+	printf "\e[1;32m%s\n" "[OK] - Monero is ok"
+fi
