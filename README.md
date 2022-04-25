@@ -59,7 +59,7 @@ To configure script options, edit the variables at the top of the script
 ---
 
 ## About 
-[xmrig](https://github.com/xmrig/xmrig)-auto-build:
+**[xmrig-auto-build:](https://github.com/xmrig/xmrig)**
 * installs build dependencies
 * builds libraries
 * uses those libraries to build a XMRig binary
