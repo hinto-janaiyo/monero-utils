@@ -38,6 +38,8 @@ or
 <details>
 <summary>monero-51%-detector</summary>
 
+---
+
 ### usage
 ```
 ./monero-51%-detector
