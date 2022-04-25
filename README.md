@@ -61,7 +61,7 @@ To configure script options, edit the variables at the top of the script
 
 ---
 
-## About 
+## about 
 **[xmrig-auto-build:](https://github.com/xmrig/xmrig)**
 * installs build dependencies
 * builds libraries
@@ -71,7 +71,7 @@ To configure script options, edit the variables at the top of the script
 
 *note: build dependencies are NOT uninstalled afterwards*
 
-## Supported OS
+## supported OS
 * **Debian** (apt based: Ubuntu, Linux Mint, Pop!_OS)
 * **Arch** (pacman based: Manjaro)
 * **Fedora** (DNF based)
@@ -80,26 +80,26 @@ To configure script options, edit the variables at the top of the script
 * **MacOS** ([brew](https://brew.sh) based)
 * ❌ **Windows** ([see manual build here](https://xmrig.com/docs/miner/build/windows))
 
-## Usage
+## usage
 ```
-Interactive:
-./XMRig-Auto-Build
-Options:
-./XMRig-Auto-Build <option> <more options>
+interactive:
+./xmrig-auto-build
+options:
+./xmrig-auto-build <option> <more options>
 
--S    --stable                Use stable libraries
--L    --latest                Use latest development libraries
--C    --config                Allow configuration of the config.json (GNU/Linux only)
--P    --path                  Set install path:  --path=YOUR_PATH_HERE  or  -P=YOUR_PATH_HERE
--D    --dev                   Use the active development branch of XMRig
+-S    --stable                use stable libraries
+-L    --latest                use latest development libraries
+-C    --config                allow configuration of the config.json (GNU/Linux only)
+-P    --path                  set install path:  --path=YOUR_PATH_HERE  or  -P=YOUR_PATH_HERE
+-D    --dev                   use the active development branch of XMRig
 
--c    --clean                 Delete all files except xmrig and config.json at end of build
--d    --deps                  Install build dependencies
--q    --quiet                 Turn off verbose build messages (progress and errors are still shown)
--l    --libre                 Use LibreSSL instead of OpenSSL
--f    --force                 Force overwrite if /xmrig/ folder already exists
+-c    --clean                 delete all files except xmrig and config.json at end of build
+-d    --deps                  install build dependencies
+-q    --quiet                 turn off verbose build messages (progress and errors are still shown)
+-l    --libre                 use LibreSSL instead of OpenSSL
+-f    --force                 force overwrite if /xmrig/ folder already exists
 
--h    --help                  Print this help message
+-h    --help                  print this help message
 ```
 
 ---
