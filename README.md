@@ -46,7 +46,7 @@ or
 ```
 ***This script is only as accurate as your `bitmonero.log`***
 
-For better accuracy, use this on a system with `monerod` always on
+For better accuracy, use this on a system always has `monerod` running
 
 `~/.bitmonero/bitmonero.log` is the default log path used
 
