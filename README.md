@@ -50,6 +50,10 @@ This will only search through what your `monerod` has logged in `bitmonero.log`
 
 To configure script options, edit the variables at the top of the script
 
+[ok] & [fine] will exit with 0
+
+[concern] & [DANGER] will exit with 1
+
 ---
 
 </details>
