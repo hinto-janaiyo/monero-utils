@@ -69,13 +69,14 @@ echo
 printf "\e[0;00m%s" "Verdict: "
 if [[ $danger = true ]]; then
 	printf "\e[1;91m%s\n" "[DANGER] - Monero under attack"
-	exit
+	exit 1
 elif [[ $concern = true ]]; then
 	printf "\e[1;33m%s\n" "[CONCERN] - Monero might be under attack"
-	exit
+	exit 1
 elif [[ $fine = true ]]; then
 	printf "\e[1;37m%s\n" "[FINE] - Monero is fine"
-	exit
+	exit 0
 else
 	printf "\e[1;32m%s\n" "[OK] - Monero is ok"
+	exit 0
 fi
