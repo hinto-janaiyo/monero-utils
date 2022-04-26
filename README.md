@@ -15,6 +15,9 @@ standalone bash scripts for monero
 
 To configure script options, edit the variables at the top of the script
 
+Example output of 51% attack being detected:
+![example](https://user-images.githubusercontent.com/101352116/165202608-403d7a28-0385-455d-8752-97635bf6614c.jpg)
+
 ---
 
 </details>
