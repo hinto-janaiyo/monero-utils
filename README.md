@@ -11,11 +11,7 @@ standalone bash scripts for monero
 ```
 ./monero-51%-detector
 ```
-***This script is only as accurate as your `bitmonero.log`***
-
-For better accuracy, use this on a system that has `monerod` always running
-
-`~/.bitmonero/bitmonero.log` is the default log path used
+***This script is only as accurate as your `bitmonero.log`***, use this on a system that has `monerod` always running
 
 To configure script options, edit the variables at the top of the script
 

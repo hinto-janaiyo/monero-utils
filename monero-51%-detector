@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
-
 ################# SCRIPT CONFIGURATION #################
-
 # path of bitmonero.log
 LOG="$HOME/.bitmonero/bitmonero.log"
 
@@ -12,12 +10,15 @@ SKIP_OK="false"
 SKIP_FINE="false"
 
 # skip the printing of [concern] blocks (true/false)
-SKIP_CONCERN="false"
+SKIP_WARN="false"
 
 ########################################################
 
-# grep'ing block reorgs
-OUTPUT="$(grep "alternative blockchain size:.* w" "$LOG" | sed "s/[.*].*alternative/ alternative/g" | sed "s/ with.*//g")"
+# block reorg output
+OUTPUT="$(grep -B1 "alternative blockchain size:.* w" "$LOG" | sed 's/--//g')"
+
+# block reorg size
+SIZE="$(echo "$OUTPUT" | grep "alternative blockchain size:.* w"| sed "s/[.*].*alternative/ alternative/g" | sed "s/ with.*//g")"
 if [[ $OUTPUT = "" ]]; then
 	echo "Error: Empty log file"
 	exit
@@ -31,35 +32,36 @@ printf "$(printf "$OUTPUT" | tail -n1 | awk '{print $1" "$2}')\n"
 
 printf "\e[0;00m%s\n" "Log path: $LOG"
 
-printf "\e[0;00m%s\n" "Skip [ok]: $SKIP_OK"
-printf "\e[0;00m%s\n" "Skip [fine]: $SKIP_FINE"
-printf "\e[0;00m%s\n\n" "Skip [concern]: $SKIP_CONCERN"
-
+printf "\e[0;00m%s\n" "Skip [  ok  ]: $SKIP_OK"
+printf "\e[0;00m%s\n" "Skip [ fine ]: $SKIP_FINE"
+printf "\e[0;00m%s\n\n" "Skip [ warn ]: $SKIP_WARN"
 
 # loop through every line
 IFS=$'\n'
-for i in $(printf "$OUTPUT") ;do
-	block="$(printf "$i" | sed "s/.*: //g")"
-    if [[ $block -gt 5 ]]; then
-        printf "\e[1;91m%s" "[DANGER] "
-        printf "\e[0m%s\n" "$i"
+for i in $(printf "$SIZE") ;do
+	reorg="$(printf "$i" | sed "s/.*: //g")"
+	time="$(printf "$i" | awk '{print $1" "$2}')"
+	height="$(grep "${time}.*###### REORGANIZE" "$LOG" | sed "s/[.*].*height://g" | awk '{print $3}')"
+    if [[ $reorg -gt 5 ]]; then
+        printf "\e[1;91m%s" "[DANGER]    "
+		printf "\e[0m%s\n" "$time    height: $height    reorg size: $reorg"
 		danger="true"
-    elif [[ $block -gt 3 ]]; then
-		concern="true"
-		if [[ $SKIP_CONCERN != "true" ]]; then
-	        printf "\e[1;33m%s" "[concern] "
-	        printf "\e[0m%s\n" "$i"
+    elif [[ $reorg -gt 3 ]]; then
+		warn="true"
+		if [[ $SKIP_WARN != "true" ]]; then
+	        printf "\e[1;33m%s" "[ warn ]    "
+			printf "\e[0m%s\n" "$time    height: $height    reorg size: $reorg"
 		fi
-	elif [[ $block -gt 2 ]]; then
+	elif [[ $reorg -gt 2 ]]; then
 		fine="true"
 		if [[ $SKIP_FINE != "true" ]]; then
-	        printf "\e[1;37m%s" "[fine] "
-	        printf "\e[0m%s\n" "$i"
+	        printf "\e[1;37m%s" "[ fine ]    "
+			printf "\e[0m%s\n" "$time    height: $height    reorg size: $reorg"
 		fi
-	elif [[ $block -lt 3 ]]; then
+	elif [[ $reorg -lt 3 ]]; then
 		if [[ $SKIP_OK != "true" ]]; then
-			printf "\e[1;32m%s" "[ok] "
-	        printf "\e[0m%s\n" "$i"
+			printf "\e[1;32m%s" "[  ok  ]    "
+			printf "\e[0m%s\n" "$time    height: $height    reorg size: $reorg"
 		fi
     fi
 done
@@ -68,15 +70,15 @@ done
 echo
 printf "\e[0;00m%s" "Verdict: "
 if [[ $danger = true ]]; then
-	printf "\e[1;91m%s\n" "[DANGER] - Monero under attack"
+	printf "\e[1;91m%s\n" "[DANGER] - Monero is likely under attack"
 	exit 1
-elif [[ $concern = true ]]; then
-	printf "\e[1;33m%s\n" "[CONCERN] - Monero might be under attack"
+elif [[ $warn = true ]]; then
+	printf "\e[1;33m%s\n" "[ warn ] - Monero might be under attack"
 	exit 1
 elif [[ $fine = true ]]; then
-	printf "\e[1;37m%s\n" "[FINE] - Monero is fine"
+	printf "\e[1;37m%s\n" "[ fine ] - Monero is fine"
 	exit 0
 else
-	printf "\e[1;32m%s\n" "[OK] - Monero is ok"
+	printf "\e[1;32m%s\n" "[  ok  ] - Monero is okay"
 	exit 0
 fi
