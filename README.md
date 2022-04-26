@@ -57,6 +57,22 @@ or
 </details>
 
 <details>
+<summary>xmr-price</summary>
+
+---
+
+## usage
+```
+./xmr-price
+```
+
+Fetchs fiat price data from `https://min-api.cryptocompare.com` for `USD,EUR,JPY,GBP,CHF,CAD,AUD,ZAR`
+
+---
+
+</details>
+
+<details>
 <summary>xmrig-auto-build</summary>
 
 ---
@@ -101,22 +117,6 @@ options:
 
 -h    --help                  print this help message
 ```
-
----
-
-</details>
-
-<details>
-<summary>xmr-price</summary>
-
----
-
-## usage
-```
-./xmr-price
-```
-
-Fetchs fiat price data from `https://min-api.cryptocompare.com` for `USD,EUR,JPY,GBP,CHF,CAD,AUD,ZAR`
 
 ---
 
