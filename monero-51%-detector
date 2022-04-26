@@ -14,6 +14,12 @@ SKIP_WARN="false"
 
 ########################################################
 
+# no log
+if [[ -e "$LOG" ]]; then
+	echo "Error: no bitmonero.log found"
+	exit 1
+fi
+
 # block reorg output
 OUTPUT="$(grep -B1 "alternative blockchain size:.* w" "$LOG" | sed 's/--//g')"
 
@@ -21,7 +27,7 @@ OUTPUT="$(grep -B1 "alternative blockchain size:.* w" "$LOG" | sed 's/--//g')"
 SIZE="$(echo "$OUTPUT" | grep "alternative blockchain size:.* w"| sed "s/[.*].*alternative/ alternative/g" | sed "s/ with.*//g")"
 if [[ $OUTPUT = "" ]]; then
 	echo "Error: Empty log file"
-	exit
+	exit 1
 fi
 
 # title
