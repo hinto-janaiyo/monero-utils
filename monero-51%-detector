@@ -20,14 +20,17 @@ if [[ ! -e "$LOG" ]]; then
 	exit 1
 fi
 
-# block reorg output
+# block reorg
 OUTPUT="$(grep -B1 "alternative blockchain size:.* w" "$LOG" | sed 's/--//g')"
-
-# block reorg size
 SIZE="$(echo "$OUTPUT" | grep "alternative blockchain size:.* w"| sed "s/[.*].*alternative/ alternative/g" | sed "s/ with.*//g")"
+
+# error
 if [[ $OUTPUT = "" ]]; then
 	echo "Error: Empty log file"
 	exit 1
+elif [[ $SIZE = "" ]]; then
+	echo "Error: No block reorgs found in log file"
+	exit 2
 fi
 
 # title
