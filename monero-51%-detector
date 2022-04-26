@@ -15,7 +15,7 @@ SKIP_WARN="false"
 ########################################################
 
 # no log
-if [[ -e "$LOG" ]]; then
+if [[ ! -e "$LOG" ]]; then
 	echo "Error: no bitmonero.log found"
 	exit 1
 fi
