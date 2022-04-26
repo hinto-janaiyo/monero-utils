@@ -9,7 +9,7 @@ SKIP_OK="false"
 # skip the printing of [fine] blocks (true/false)
 SKIP_FINE="false"
 
-# skip the printing of [concern] blocks (true/false)
+# skip the printing of [warn] blocks (true/false)
 SKIP_WARN="false"
 
 ########################################################
