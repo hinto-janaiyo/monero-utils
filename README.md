@@ -3,6 +3,27 @@ standalone bash scripts for monero
 
 ## scripts
 <details>
+<summary>monero-51%-detector</summary>
+
+---
+
+### usage
+```
+./monero-51%-detector
+```
+***This script is only as accurate as your `bitmonero.log`***
+
+For better accuracy, use this on a system that has `monerod` always running
+
+`~/.bitmonero/bitmonero.log` is the default log path used
+
+To configure script options, edit the variables at the top of the script
+
+---
+
+</details>
+
+<details>
 <summary>monero-seed-generator</summary>
 
 ---
@@ -31,27 +52,6 @@ or
 10 - Esperanto
 11 - Lojban
 ```
----
-
-</details>
-
-<details>
-<summary>monero-51%-detector</summary>
-
----
-
-### usage
-```
-./monero-51%-detector
-```
-***This script is only as accurate as your `bitmonero.log`***
-
-For better accuracy, use this on a system that has `monerod` always running
-
-`~/.bitmonero/bitmonero.log` is the default log path used
-
-To configure script options, edit the variables at the top of the script
-
 ---
 
 </details>
@@ -101,6 +101,22 @@ options:
 
 -h    --help                  print this help message
 ```
+
+---
+
+</details>
+
+<details>
+<summary>xmr-price</summary>
+
+---
+
+## usage
+```
+./xmr-price
+```
+
+Fetchs fiat price data from `https://min-api.cryptocompare.com` for `USD,EUR,JPY,GBP,CHF,CAD,AUD,ZAR`
 
 ---
 

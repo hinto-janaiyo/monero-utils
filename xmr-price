@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+if [[ ! -e /usr/bin/wget ]]; then
+	echo "Error: wget not found"
+	exit 1
+fi
+
+printf "\e[1;31mXMR price:\e[0m\n"
+wget -qO- "https://min-api.cryptocompare.com/data/price?fsym=XMR&tsyms=USD,EUR,JPY,GBP,CHF,CAD,AUD,ZAR" | tr -d "{\"}" | tr "," "\n" | sed 's/:/: /g'
+echo
